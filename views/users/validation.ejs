@@ -1,0 +1,14 @@
+// --- views/users/validation.ejs ---
+<% layout('layout') %>
+<h2>Validation des apprenants</h2>
+<ul>
+  <% users.forEach(u => { %>
+    <li><%= u.login %> - <%= u.prenom %> <%= u.nom %> - Actif : <%= u.active %>
+      <% if (!u.active) { %>
+        <form method="POST" action="/users/validate/<%= u._id %>" style="display:inline">
+          <button>Activer</button>
+        </form>
+      <% } %>
+    </li>
+  <% }) %>
+</ul>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Détail ticket - <%= ticket.titre %></title>
+</head>
+<body>
+  <h1><%= ticket.titre %></h1>
+  <p><strong>Auteur :</strong> <%= ticket.auteur %></p>
+  <p><strong>Description :</strong> <%= ticket.description %></p>
+  <p><strong>État :</strong> <%= ticket.etat %></p>
+  <p><strong>Créé le :</strong> <%= new Date(ticket.createdAt).toLocaleString() %></p>
+
+  <p><a href="/tickets">Retour à la liste</a></p>
+
+  <% if ((ticket.auteur === user.login) || user.role === 'formateur') { %>
+    <p>
+      <a href="/tickets/<%= ticket._id %>/edit">Modifier</a>
+      <form method="post" action="/tickets/<%= ticket._id %>/delete" style="display:inline;">
+        <button type="submit" onclick="return confirm('Supprimer ce ticket ?');">Supprimer</button>
+      </form>
+    </p>
+  <% } %>
+
+  <hr/>
+
+  <h2>Réponses</h2>
+  <% if (reponses.length === 0) { %>
+    <p>Aucune réponse pour l'instant.</p>
+  <% } else { %>
+    <ul>
+      <% reponses.forEach(rep => { %>
+        <li><strong><%= rep.auteur %></strong> (<%= new Date(rep.createdAt).toLocaleString() %>) : <%= rep.texte %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <h3>Ajouter une réponse</h3>
+  <form method="post" action="/tickets/<%= ticket._id %>/reponses">
+    <textarea name="texte" required></textarea><br/>
+    <button type="submit">Envoyer</button>
+  </form>
+</body>
+</html>

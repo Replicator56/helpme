@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Inscription - ENI Tickets</title>
+  </head>
+  <body>
+    <h1>Gestion des apprenants</h1>
+    <% if (user) { %>
+    <p>
+      Connecté en tant que <%= user.login %> (<%= user.role %>) |
+      <a href="/logout">Déconnexion</a>
+    </p>
+    <% } %>
+
+    <p><a href="/">Retour à la liste des tickets</a></p>
+
+    <h2>Créer un nouvel apprenant</h2>
+    <form method="post" action="/register">
+      <label>Login* : <input type="text" name="login" /></label>
+      <% if (errors.login) { %><span style="color: red"
+        ><%= errors.login %></span
+      ><% } %><br />
+
+      <label>Mot de passe* : <input type="password" name="password" /></label>
+      <% if (errors.password) { %><span style="color: red"
+        ><%= errors.password %></span
+      ><% } %><br />
+
+      <label>Prénom* : <input type="text" name="prenom" /></label>
+      <% if (errors.prenom) { %><span style="color: red"
+        ><%= errors.prenom %></span
+      ><% } %><br />
+
+      <label>Nom* : <input type="text" name="nom" /></label>
+      <% if (errors.nom) { %><span style="color: red"><%= errors.nom %></span><%
+      } %><br />
+
+      <button type="submit">Créer</button>
+    </form>
+
+    <hr />
+
+    <h2>Liste des apprenants</h2>
+    <table border="1" cellpadding="5" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Login</th>
+          <th>Prénom</th>
+          <th>Nom</th>
+          <th>Activé</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(u => { %>
+        <tr>
+          <td><%= u.login %></td>
+          <td><%= u.prenom %></td>
+          <td><%= u.nom %></td>
+          <td><%= u.active ? 'Oui' : 'Non' %></td>
+          <td>
+            <form
+              method="post"
+              action="/register/<%= u._id %>/validate"
+              style="display: inline"
+            >
+              <button type="submit">
+                <%= u.active ? 'Désactiver' : 'Activer' %>
+              </button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+ENI-Soft Ticket App
+
+Application de gestion de tickets pour centre de formation
+Technos : Node.js, Express, MongoDB (MongoClient), EJS
+Prérequis
+
+    Node.js (v14+ recommandé)
+
+    MongoDB en fonctionnement (local ou distant)
+
+    Un terminal / shell
+
+Installation
+
+    Cloner le projet
+
+git clone <url-du-repo>
+cd eni-soft-ticket-app
+
+    Installer les dépendances
+
+npm install
+
+    Configurer les variables d’environnement
+
+Crée un fichier .env à la racine avec au minimum :
+
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/eni-soft
+FORMATEUR_PASS=motdepasseFormateur
+
+    PORT : port sur lequel tourner l’application
+
+    MONGO_URI : URI de connexion MongoDB
+
+    FORMATEUR_PASS : mot de passe du formateur (login par défaut : formateur)
+
+Lancement
+
+npm start
+
+L’application sera accessible sur http://localhost:3000
+Fonctionnalités principales
+
+    Connexion / inscription apprenants
+
+    Validation inscription par formateur (activation/désactivation)
+
+    Création, modification, suppression (soft-delete) de tickets par auteurs/formateur
+
+    Visualisation des tickets en ordre chronologique
+
+    Ajout de réponses aux tickets
+
+    Profil utilisateur (changement login & mot de passe)
+
+    Interface dédiée formateur pour gérer utilisateurs
+
+Structure du projet
+
+/eni-soft-ticket-app
+│
+├── /views               # Templates EJS
+│
+├── /services            # Logique métier (MongoClient, gestion utilisateurs, tickets)
+│
+├── app.js               # Point d’entrée serveur
+│
+├── package.json
+│
+├── .env                 # Variables d’environnement (à créer)
+│
+└── README.md
+
+Notes
+
+    Le login formateur est réservé au formateur avec mot de passe stocké en variable d’environnement
+
+    Les tickets supprimés sont simplement marqués comme supprimés (soft delete) et invisibles
+
+    L’inscription apprenant nécessite validation formateur
+
+    Les tickets ont état ouvert par défaut, peuvent être clos par auteur ou formateur
+
+Améliorations futures
+
+    Fonctionnalité “Supprimer tous les tickets” par formateur
+
+    Notifications en temps réel (WebSocket)
+
+    Pagination et filtres sur liste tickets
+
+    Système de rôles plus granulaire

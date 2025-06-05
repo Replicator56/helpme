@@ -1,0 +1,18 @@
+// --- views/layout.ejs ---
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title><%= title %></title>
+  </head>
+  <body>
+    <header>
+      <h1>ENI-Soft - Gestion des Tickets</h1>
+      <% if (user) { %>
+      <p>Bienvenue, <%= user.login %> | <a href="/logout">Déconnexion</a></p>
+      <% } %>
+    </header>
+    <main><%- body %></main>
+  </body>
+</html>

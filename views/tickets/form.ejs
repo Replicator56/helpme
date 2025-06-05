@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title><%= ticket._id ? 'Modifier' : 'Créer' %> un ticket</title>
+</head>
+<body>
+  <h1><%= ticket._id ? 'Modifier' : 'Créer' %> un ticket</h1>
+  <p><a href="/tickets">Retour à la liste</a></p>
+
+  <form method="post" action="<%= ticket._id ? ('/tickets/' + ticket._id + '/edit') : '/tickets/create' %>">
+    <label>
+      Titre* : <input type="text" name="titre" value="<%= ticket.titre || '' %>" />
+      <% if (errors && errors.titre) { %>
+        <span style="color:red;"><%= errors.titre %></span>
+      <% } %>
+    </label><br/>
+
+    <label>
+      Description* : <textarea name="description"><%= ticket.description || '' %></textarea>
+      <% if (errors && errors.description) { %>
+        <span style="color:red;"><%= errors.description %></span>
+      <% } %>
+    </label><br/>
+
+    <% if (ticket._id) { %>
+      <label>
+        État :
+        <select name="etat">
+          <option value="ouvert" <%= ticket.etat === 'ouvert' ? 'selected' : '' %>>Ouvert</option>
+          <option value="clos" <%= ticket.etat === 'clos' ? 'selected' : '' %>>Clos</option>
+        </select>
+        <% if (errors && errors.etat) { %>
+          <span style="color:red;"><%= errors.etat %></span>
+        <% } %>
+      </label><br/>
+    <% } %>
+
+    <button type="submit"><%= ticket._id ? 'Modifier' : 'Créer' %></button>
+  </form>
+</body>
+</html>

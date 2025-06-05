@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="/styles.css" />
+  <title>Tickets - ENI Tickets</title>
+</head>
+<body>
+  <h1>Liste des tickets</h1>
+  <p>Connecté en tant que <%= user.login %> (<%= user.role %>) | <a href="/logout">Déconnexion</a></p>
+  <p><a href="/tickets/create">Créer un nouveau ticket</a></p>
+  <% if (tickets.length === 0) { %>
+    <p>Aucun ticket pour le moment.</p>
+  <% } else { %>
+    <ul>
+      <% tickets.forEach(ticket => { %>
+        <% if (!ticket.deleted) { %>
+          <li>
+            <a href="/tickets/<%= ticket._id %>"><%= ticket.titre %></a>
+            - Auteur : <%= ticket.auteur %> - État : <%= ticket.etat %>
+          </li>
+        <% } %>
+      <% }) %>
+    </ul>
+  <% } %>
+</body>
+</html>
